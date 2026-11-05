@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Practice identifying common Utah trees with visual clues, study cards, and a self-checking quiz.">
+  <meta name="theme-color" content="#183b32">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Treewise — Utah Tree ID Practice</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Treewise home"><span class="brand-mark" aria-hidden="true">✳</span> treewise</a>
+    <nav aria-label="Main navigation">
+      <a href="#learn">Learn</a>
+      <a href="#practice">Practice</a>
+      <a href="#field-notes">Field notes</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">A FIELD GUIDE YOU CAN PRACTICE WITH</p>
+        <h1>Know your trees.<br><em>Know your place.</em></h1>
+        <p class="hero-intro">Build your tree-identification skills one clue at a time. Start with familiar Utah species, notice the details, and test what you remember.</p>
+        <div class="hero-actions">
+          <a class="button button-light" href="#practice">Start practicing <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#learn">Explore the guide</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Stylized illustration of a mountain landscape with several trees" role="img">
+        <svg viewBox="0 0 560 420" aria-hidden="true">
+          <circle cx="420" cy="82" r="43" fill="#e6b96c"/>
+          <path d="M0 285 115 135l82 102 101-151 155 199 107-96v231H0Z" fill="#9ab3a0"/>
+          <path d="m0 329 133-111 99 76 107-109 104 105 117-80v210H0Z" fill="#557b69"/>
+          <path d="M0 365 127 289l107 55 113-79 108 72 105-57v140H0Z" fill="#294f42"/>
+          <g fill="#183b32">
+            <path d="M80 330h15v-84h-15zM87 180l-43 87h27l-18 33h68l-18-33h27z"/>
+            <path d="M190 357h13v-70h-13zM196 226l-34 72h21l-15 28h56l-15-28h21z"/>
+            <path d="M420 353h15v-91h-15zM427 191l-44 91h27l-18 34h70l-18-34h27z"/>
+            <path d="M500 368h11v-66h-11zM505 244l-31 65h19l-13 25h50l-13-25h19z"/>
+          </g>
+          <g fill="#e8eadc" opacity=".85">
+            <path d="m115 135 28 35-28-12-28 12zM298 86l34 48-34-17-34 17z"/>
+          </g>
+          <path d="M0 388q130-25 245 0t315 0v32H0Z" fill="#183b32"/>
+        </svg>
+        <div class="art-caption"><span class="dot"></span> 8 species to get you started</div>
+      </div>
+    </section>
+
+    <section class="intro-strip">
+      <div><span class="big-number">01</span><span>Look closely</span></div>
+      <div><span class="big-number">02</span><span>Compare clues</span></div>
+      <div><span class="big-number">03</span><span>Test your eye</span></div>
+    </section>
+
+    <section class="section" id="learn">
+      <div class="section-heading">
+        <div><p class="eyebrow">THE STARTER COLLECTION</p><h2>Meet the trees</h2></div>
+        <p>Learn the standout clues first. Then use the filters to compare broadleaf trees and evergreens.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filter tree cards">
+        <button class="filter active" data-filter="all" aria-pressed="true">All trees <span>8</span></button>
+        <button class="filter" data-filter="deciduous" aria-pressed="false">Broadleaf <span>4</span></button>
+        <button class="filter" data-filter="conifer" aria-pressed="false">Evergreen <span>4</span></button>
+      </div>
+      <div class="tree-grid" id="tree-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="practice-section" id="practice">
+      <div class="practice-top">
+        <div><p class="eyebrow">PUT YOUR KNOWLEDGE TO WORK</p><h2>Can you name that tree?</h2><p>Read the clues and choose the species you think fits best. You’ll get an explanation after each answer.</p></div>
+        <div class="score-card"><span class="score-label">YOUR SCORE</span><strong id="score">0 / 0</strong><span id="accuracy">Keep going — you’ve got this.</span></div>
+      </div>
+      <div class="quiz-card" id="quiz-card">
+        <div class="quiz-meta"><span id="question-count">QUESTION 1</span><span class="quiz-tag">IDENTIFICATION QUIZ</span></div>
+        <div class="quiz-content">
+          <div class="quiz-illustration" id="quiz-illustration" aria-hidden="true"></div>
+          <div class="quiz-question">
+            <p class="eyebrow">WHICH TREE AM I?</p>
+            <h3 id="question">Loading your first tree…</h3>
+            <ul class="clue-list" id="clues"></ul>
+          </div>
+        </div>
+        <div class="answer-grid" id="answers"></div>
+        <div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div>
+        <div class="quiz-footer">
+          <button class="button button-dark" id="next-button" disabled>Next question <span aria-hidden="true">→</span></button>
+          <button class="quiet-button" id="restart-button">Restart quiz</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="field-notes section" id="field-notes">
+      <div class="field-note-art">
+        <div class="note-stamp">FIELD<br>NOTE<br>№ 01</div>
+        <svg viewBox="0 0 320 250" role="img" aria-label="Line illustration of a leaf with visible veins">
+          <path d="M154 220C45 171 36 71 161 26c101 61 96 151-7 194Z" fill="#c4d3bc" stroke="#294f42" stroke-width="2"/>
+          <path d="M154 220 161 26M154 220 83 89m71 131 99-117M154 220 65 144m89 76 137-54M154 220 114 50" fill="none" stroke="#557b69" stroke-width="2"/>
+          <path d="M161 26q-8-16-24-20" fill="none" stroke="#294f42" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="field-note-copy">
+        <p class="eyebrow">A BETTER WAY TO IDENTIFY</p>
+        <h2>Don’t rely on one clue.</h2>
+        <p>Good identification comes from combining details: leaf or needle shape, how leaves attach to a twig, bark, cones or fruit, overall form, and where the tree is growing. A single feature can be misleading.</p>
+        <ul class="check-list">
+          <li><span>01</span> Look at the whole tree before zooming in.</li>
+          <li><span>02</span> Check several leaves, needles, or cones.</li>
+          <li><span>03</span> Notice the habitat, elevation, and season.</li>
+        </ul>
+        <a class="text-link" href="https://extension.usu.edu/treebrowser/" target="_blank" rel="noopener noreferrer">Explore USU’s Tree Browser ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#"><span class="brand-mark" aria-hidden="true">✳</span> treewise</a>
+    <p>Made for curious eyes and outdoor learning. Use multiple clues and confirm uncertain identifications with a regional field guide.</p>
+    <span>UTAH TREE ID PRACTICE · 2026</span>
+  </footer>
+</body>
+</html>

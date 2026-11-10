@@ -25,6 +25,49 @@ let index = 0;
 let score = 0;
 let answered = false;
 
+// Store only the user's best completed-round score in this browser.
+const HIGH_SCORE_KEY = 'treewise.highScore.v1';
+const scoreCard = document.querySelector('.score-card');
+const highScoreDisplay = document.createElement('span');
+highScoreDisplay.id = 'high-score';
+highScoreDisplay.className = 'high-score';
+highScoreDisplay.setAttribute('aria-live', 'polite');
+scoreCard.append(highScoreDisplay);
+
+function readHighScore() {
+  try {
+    const saved = Number(localStorage.getItem(HIGH_SCORE_KEY));
+    return Number.isInteger(saved) && saved >= 0 && saved <= trees.length ? saved : 0;
+  } catch (error) {
+    // Storage may be unavailable in private/restricted browsing contexts.
+    return null;
+  }
+}
+
+function displayHighScore() {
+  const best = readHighScore();
+  highScoreDisplay.textContent = best === null
+    ? 'Personal best unavailable'
+    : `Personal best: ${best} / ${trees.length}`;
+}
+
+function saveHighScore(finalScore) {
+  const best = readHighScore();
+  if (best === null) {
+    displayHighScore();
+    return;
+  }
+
+  if (finalScore > best) {
+    try {
+      localStorage.setItem(HIGH_SCORE_KEY, String(finalScore));
+    } catch (error) {
+      // The quiz remains usable even if the browser blocks local storage.
+    }
+  }
+  displayHighScore();
+}
+
 function artSvg(shape, label='tree illustration') {
   const commonStart = `<svg viewBox="0 0 220 150" role="img" aria-label="${label}" xmlns="http://www.w3.org/2000/svg"><path d="M0 132 Q55 122 110 132 T220 132V150H0Z" fill="#d4dfcf"/>`;
   const trunk = `<path d="M105 137 L108 78 L119 78 L121 137Z" fill="#8d795c"/>`;
@@ -107,6 +150,7 @@ function renderQuestion() {
     feedback.hidden = false;
     feedback.className = 'feedback';
     feedback.textContent = `You scored ${score} out of ${deck.length}. Restart to practice again with a new order.`;
+    saveHighScore(score);
     nextButton.disabled = true;
     nextButton.textContent = 'Round complete';
     updateScore();
@@ -156,4 +200,5 @@ nextButton.addEventListener('click', () => { if (answered) { index++; renderQues
 document.getElementById('restart-button').addEventListener('click', startQuiz);
 
 renderCards();
+displayHighScore();
 startQuiz();

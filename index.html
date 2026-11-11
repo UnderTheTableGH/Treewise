@@ -1,129 +1,295 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Practice identifying common Utah trees with visual clues, study cards, and a self-checking quiz.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#183b32">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
-  <title>Treewise — Utah Tree ID Practice</title>
-  <link rel="stylesheet" href="styles.css?v=2">
-  <script src="app.js?v=2" defer></script>
+  <meta name="description" content="Learn to identify trees throughout the United States with Treewise.">
+  <title>Treewise — U.S. Tree Identification</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="#" aria-label="Treewise home"><span class="brand-mark" aria-hidden="true">✳</span> treewise</a>
+    <a class="brand" href="#home">
+      <span class="brand-mark">✳</span>
+      <span>treewise</span>
+    </a>
     <nav aria-label="Main navigation">
-      <a href="#learn">Learn</a>
+      <a href="#learn">Tree library</a>
       <a href="#practice">Practice</a>
-      <a href="#field-notes">Field notes</a>
+      <a href="#progress">My progress</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">A FIELD GUIDE YOU CAN PRACTICE WITH</p>
-        <h1>Know your trees.<br><em>Know your place.</em></h1>
-        <p class="hero-intro">Build your tree-identification skills one clue at a time. Start with familiar Utah species, notice the details, and test what you remember.</p>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <p class="eyebrow">THE UNITED STATES TREE IDENTIFICATION GUIDE</p>
+        <h1>Know your trees.<br><em>Know your world.</em></h1>
+        <p class="hero-description">
+          Explore hundreds of tree species found across America.
+          Learn their distinguishing characteristics and build
+          your identification skills one question at a time.
+        </p>
         <div class="hero-actions">
-          <a class="button button-light" href="#practice">Start practicing <span aria-hidden="true">↗</span></a>
-          <a class="text-link" href="#learn">Explore the guide</a>
+          <a class="button button-primary" href="#practice">Start practicing</a>
+          <a class="button button-outline" href="#learn">Explore the library</a>
+        </div>
+        <p class="hero-note">Your learning progress is saved automatically on this device.</p>
+      </div>
+      <div class="hero-decoration" aria-hidden="true">
+        <div class="tree-illustration">
+          <div class="tree-crown crown-one"></div>
+          <div class="tree-crown crown-two"></div>
+          <div class="tree-crown crown-three"></div>
+          <div class="tree-trunk"></div>
+        </div>
+        <span class="decoration-label">DISCOVER • IDENTIFY • LEARN</span>
+      </div>
+    </section>
+
+    <section class="stats-strip" aria-label="Your learning overview">
+      <div class="stat">
+        <span class="stat-value" id="total-answered">0</span>
+        <span class="stat-label">Questions answered</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="recent-average">—</span>
+        <span class="stat-label">Last 50 accuracy</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="overall-proficiency">—</span>
+        <span class="stat-label">Overall proficiency</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="species-known">0</span>
+        <span class="stat-label">Species practiced</span>
+      </div>
+    </section>
+
+    <section class="section" id="practice">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">TEST YOUR KNOWLEDGE</p>
+          <h2>Build your tree knowledge</h2>
+          <p class="section-description">
+            Customize your quiz to focus on the trees and regions
+            you want to learn.
+          </p>
         </div>
       </div>
-      <div class="hero-art" aria-label="Stylized illustration of a mountain landscape with several trees" role="img">
-        <svg viewBox="0 0 560 420" aria-hidden="true">
-          <circle cx="420" cy="82" r="43" fill="#e6b96c"/>
-          <path d="M0 285 115 135l82 102 101-151 155 199 107-96v231H0Z" fill="#9ab3a0"/>
-          <path d="m0 329 133-111 99 76 107-109 104 105 117-80v210H0Z" fill="#557b69"/>
-          <path d="M0 365 127 289l107 55 113-79 108 72 105-57v140H0Z" fill="#294f42"/>
-          <g fill="#183b32">
-            <path d="M80 330h15v-84h-15zM87 180l-43 87h27l-18 33h68l-18-33h27z"/>
-            <path d="M190 357h13v-70h-13zM196 226l-34 72h21l-15 28h56l-15-28h21z"/>
-            <path d="M420 353h15v-91h-15zM427 191l-44 91h27l-18 34h70l-18-34h27z"/>
-            <path d="M500 368h11v-66h-11zM505 244l-31 65h19l-13 25h50l-13-25h19z"/>
-          </g>
-          <g fill="#e8eadc" opacity=".85">
-            <path d="m115 135 28 35-28-12-28 12zM298 86l34 48-34-17-34 17z"/>
-          </g>
-          <path d="M0 388q130-25 245 0t315 0v32H0Z" fill="#183b32"/>
-        </svg>
-        <div class="art-caption"><span class="dot"></span> 8 species to get you started</div>
-      </div>
-    </section>
 
-    <section class="intro-strip">
-      <div><span class="big-number">01</span><span>Look closely</span></div>
-      <div><span class="big-number">02</span><span>Compare clues</span></div>
-      <div><span class="big-number">03</span><span>Test your eye</span></div>
-    </section>
+      <div class="practice-layout">
+        <div class="quiz-settings panel">
+          <h3>Quiz settings</h3>
 
-    <section class="section" id="learn">
-      <div class="section-heading">
-        <div><p class="eyebrow">THE STARTER COLLECTION</p><h2>Meet the trees</h2></div>
-        <p>Learn the standout clues first. Then use the filters to compare broadleaf trees and evergreens.</p>
-      </div>
-      <div class="filters" role="group" aria-label="Filter tree cards">
-        <button class="filter active" data-filter="all" aria-pressed="true">All trees <span>8</span></button>
-        <button class="filter" data-filter="deciduous" aria-pressed="false">Broadleaf <span>4</span></button>
-        <button class="filter" data-filter="conifer" aria-pressed="false">Evergreen <span>4</span></button>
-        <button class="filter" data-filter="favorites" aria-pressed="false">Saved trees <span id="favorite-count">0</span></button>
-      </div>
-      <p class="saved-note" id="saved-note" aria-live="polite">Save trees you want to review later. Your list stays in this browser.</p>
-      <div class="tree-grid" id="tree-grid" aria-live="polite"></div>
-    </section>
+          <label for="question-count">Number of questions</label>
+          <select id="question-count">
+            <option value="10">10 questions</option>
+            <option value="25">25 questions</option>
+            <option value="50">50 questions</option>
+            <option value="100">100 questions</option>
+          </select>
 
-    <section class="practice-section" id="practice">
-      <div class="practice-top">
-        <div><p class="eyebrow">PUT YOUR KNOWLEDGE TO WORK</p><h2>Can you name that tree?</h2><p>Read the clues and choose the species you think fits best. You’ll get an explanation after each answer.</p></div>
-        <div class="score-card"><span class="score-label">YOUR SCORE</span><strong id="score">0 / 0</strong><span id="accuracy">Keep going — you’ve got this.</span></div>
-      </div>
-      <div class="quiz-card" id="quiz-card">
-        <div class="quiz-meta"><span id="question-count">QUESTION 1</span><span class="quiz-tag">IDENTIFICATION QUIZ</span></div>
-        <div class="quiz-content">
-          <div class="quiz-illustration" id="quiz-illustration" aria-hidden="true"></div>
-          <div class="quiz-question">
-            <p class="eyebrow">WHICH TREE AM I?</p>
-            <h3 id="question">Loading your first tree…</h3>
-            <ul class="clue-list" id="clues"></ul>
+          <label for="difficulty">Difficulty</label>
+          <select id="difficulty">
+            <option value="beginner">Beginner — 3 choices</option>
+            <option value="intermediate" selected>Intermediate — 4 choices</option>
+            <option value="advanced">Advanced — 4 choices</option>
+          </select>
+
+          <label for="region-filter">Geographic region</label>
+          <select id="region-filter">
+            <option value="all">All U.S. regions</option>
+            <option value="Northeast">Northeast</option>
+            <option value="Southeast">Southeast</option>
+            <option value="Midwest">Midwest</option>
+            <option value="Southwest">Southwest</option>
+            <option value="West">West</option>
+            <option value="Pacific">Pacific Coast</option>
+            <option value="National">Widespread / multiple regions</option>
+          </select>
+
+          <fieldset>
+            <legend>Tree categories</legend>
+            <div class="category-options">
+              <label><input type="checkbox" name="category" value="Deciduous" checked> Deciduous</label>
+              <label><input type="checkbox" name="category" value="Evergreen" checked> Evergreen</label>
+              <label><input type="checkbox" name="category" value="Conifer" checked> Conifers</label>
+              <label><input type="checkbox" name="category" value="Broadleaf" checked> Broadleaf evergreens</label>
+              <label><input type="checkbox" name="category" value="Palm" checked> Palms</label>
+            </div>
+          </fieldset>
+
+          <button class="button button-primary button-full" id="start-quiz">
+            Start quiz
+          </button>
+          <p class="settings-note" id="available-count">Loading tree catalog...</p>
+        </div>
+
+        <div class="quiz-panel panel" id="quiz-panel">
+          <div class="quiz-placeholder" id="quiz-placeholder">
+            <span class="placeholder-icon">🌳</span>
+            <h3>Ready when you are</h3>
+            <p>Choose your quiz settings and start identifying trees.</p>
+          </div>
+
+          <div id="quiz-content" hidden>
+            <div class="quiz-topline">
+              <span id="question-position">Question 1 of 10</span>
+              <span id="quiz-score">Score: 0</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="quiz-progress"></div>
+            </div>
+            <p class="eyebrow question-eyebrow">IDENTIFY THIS TREE</p>
+            <h3 id="question-title">Which tree is this?</h3>
+            <div class="tree-question">
+              <div class="question-symbol" id="question-symbol">🌳</div>
+              <div>
+                <span class="question-region" id="question-region"></span>
+                <p id="question-clue"></p>
+              </div>
+            </div>
+            <div class="answer-options" id="answer-options"></div>
+            <div class="answer-feedback" id="answer-feedback" aria-live="polite" hidden></div>
+            <button class="button button-primary button-full" id="next-question" hidden>
+              Next question
+            </button>
+          </div>
+
+          <div id="quiz-complete" hidden>
+            <p class="eyebrow">QUIZ COMPLETE</p>
+            <h3>Your results</h3>
+            <div class="completion-score" id="completion-score">0%</div>
+            <p id="completion-message"></p>
+            <p class="completion-detail" id="completion-detail"></p>
+            <button class="button button-primary button-full" id="restart-quiz">
+              Take another quiz
+            </button>
           </div>
         </div>
-        <div class="answer-grid" id="answers"></div>
-        <div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div>
-        <div class="quiz-footer">
-          <button class="button button-dark" id="next-button" disabled>Next question <span aria-hidden="true">→</span></button>
-          <button class="quiet-button" id="restart-button">Restart quiz</button>
-        </div>
       </div>
     </section>
 
-    <section class="field-notes section" id="field-notes">
-      <div class="field-note-art">
-        <div class="note-stamp">FIELD<br>NOTE<br>№ 01</div>
-        <svg viewBox="0 0 320 250" role="img" aria-label="Line illustration of a leaf with visible veins">
-          <path d="M154 220C45 171 36 71 161 26c101 61 96 151-7 194Z" fill="#c4d3bc" stroke="#294f42" stroke-width="2"/>
-          <path d="M154 220 161 26M154 220 83 89m71 131 99-117M154 220 65 144m89 76 137-54M154 220 114 50" fill="none" stroke="#557b69" stroke-width="2"/>
-          <path d="M161 26q-8-16-24-20" fill="none" stroke="#294f42" stroke-width="3" stroke-linecap="round"/>
-        </svg>
+    <section class="section library-section" id="learn">
+      <div class="section-heading library-heading">
+        <div>
+          <p class="eyebrow">EXPLORE THE NATURAL WORLD</p>
+          <h2>Tree library</h2>
+          <p class="section-description">
+            Browse species by name, region, or botanical category.
+          </p>
+        </div>
+        <div class="library-count"><span id="library-count">0</span> species</div>
       </div>
-      <div class="field-note-copy">
-        <p class="eyebrow">A BETTER WAY TO IDENTIFY</p>
-        <h2>Don’t rely on one clue.</h2>
-        <p>Good identification comes from combining details: leaf or needle shape, how leaves attach to a twig, bark, cones or fruit, overall form, and where the tree is growing. A single feature can be misleading.</p>
-        <ul class="check-list">
-          <li><span>01</span> Look at the whole tree before zooming in.</li>
-          <li><span>02</span> Check several leaves, needles, or cones.</li>
-          <li><span>03</span> Notice the habitat, elevation, and season.</li>
-        </ul>
-        <a class="text-link" href="https://extension.usu.edu/treebrowser/" target="_blank" rel="noopener noreferrer">Explore USU’s Tree Browser ↗</a>
+
+      <div class="library-controls">
+        <input type="search" id="tree-search" placeholder="Search common or scientific names..." aria-label="Search trees">
+        <select id="library-region" aria-label="Filter by region">
+          <option value="all">All regions</option>
+          <option value="Northeast">Northeast</option>
+          <option value="Southeast">Southeast</option>
+          <option value="Midwest">Midwest</option>
+          <option value="Southwest">Southwest</option>
+          <option value="West">West</option>
+          <option value="Pacific">Pacific Coast</option>
+          <option value="National">Widespread</option>
+        </select>
+        <select id="library-category" aria-label="Filter by category">
+          <option value="all">All categories</option>
+          <option value="Deciduous">Deciduous</option>
+          <option value="Evergreen">Evergreen</option>
+          <option value="Conifer">Conifers</option>
+          <option value="Broadleaf">Broadleaf evergreens</option>
+          <option value="Palm">Palms</option>
+        </select>
       </div>
+
+      <div class="tree-grid" id="tree-grid"></div>
+      <p class="empty-state" id="library-empty" hidden>No trees match your search.</p>
+    </section>
+
+    <section class="section progress-section" id="progress">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL FIELD JOURNAL</p>
+          <h2>Learning progress</h2>
+          <p class="section-description">
+            Your results are saved locally and updated as you practice.
+          </p>
+        </div>
+      </div>
+
+      <div class="progress-dashboard">
+        <div class="panel dashboard-card">
+          <h3>Recent performance</h3>
+          <div class="big-metric" id="dashboard-average">—</div>
+          <p>Accuracy across your last 50 questions</p>
+          <div class="mini-stats">
+            <div><strong id="dashboard-correct">0</strong><span>Correct</span></div>
+            <div><strong id="dashboard-incorrect">0</strong><span>Incorrect</span></div>
+            <div><strong id="dashboard-total">0</strong><span>Total answered</span></div>
+          </div>
+        </div>
+
+        <div class="panel dashboard-card">
+          <h3>Overall proficiency</h3>
+          <div class="big-metric" id="dashboard-proficiency">—</div>
+          <p>Based on your species identification history</p>
+          <div class="proficiency-track">
+            <div class="progress-fill" id="proficiency-bar"></div>
+          </div>
+          <p class="small-note" id="proficiency-description">
+            Answer questions to begin measuring your proficiency.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel category-progress">
+        <h3>Category proficiency</h3>
+        <div id="category-progress-list">
+          <p class="muted">Your category statistics will appear here as you practice.</p>
+        </div>
+      </div>
+
+      <div class="panel species-progress">
+        <div class="panel-heading-row">
+          <div>
+            <h3>Species knowledge</h3>
+            <p class="muted">Your identification accuracy for individual trees.</p>
+          </div>
+          <button class="button button-small button-outline" id="clear-progress">
+            Reset my progress
+          </button>
+        </div>
+        <div id="species-progress-list">
+          <p class="muted">No species practiced yet.</p>
+        </div>
+      </div>
+
+      <p class="privacy-note">
+        <strong>Privacy:</strong> Your learning history is stored in this
+        browser using localStorage. It is not uploaded to a server or
+        synchronized with other devices.
+      </p>
     </section>
   </main>
 
-  <footer>
-    <a class="brand footer-brand" href="#"><span class="brand-mark" aria-hidden="true">✳</span> treewise</a>
-    <p>Made for curious eyes and outdoor learning. Use multiple clues and confirm uncertain identifications with a regional field guide.</p>
-    <span>UTAH TREE ID PRACTICE · 2026</span>
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#home">✳ treewise</a>
+    <p>A learning tool for curious naturalists.</p>
+    <p class="footer-disclaimer">
+      Tree distributions vary locally. Use regional field guides and
+      authoritative botanical references for formal identification.
+    </p>
   </footer>
+
+  <dialog id="tree-dialog" class="tree-dialog">
+    <button class="dialog-close" id="close-dialog" aria-label="Close">×</button>
+    <div id="tree-dialog-content"></div>
+  </dialog>
 </body>
 </html>

@@ -1,8 +1,10 @@
 
+<!-- Project title: identifies the website and the subject it teaches. -->
 # Treewise — U.S. Tree Identification
 
 Treewise is an educational tree-identification website covering tree species found throughout the United States.
 
+<!-- This list summarizes what visitors can do on the website. -->
 ## Features
 
 - Nationwide tree catalog with common and scientific names.
@@ -19,18 +21,21 @@ Treewise is an educational tree-identification website covering tree species fou
 - Persistent learning history using browser localStorage.
 - Responsive desktop and mobile layout.
 
+<!-- This section explains the purpose of each file in the project. -->
 ## Project files
 
 - `index.html` — website structure.
 - `styles.css` — presentation and responsive layout.
 - `app.js` — species catalog, quizzes, statistics, and storage.
 
+<!-- Instructions for opening and testing the website on your own computer. -->
 ## Running locally
 
 Open `index.html` in a modern web browser.
 
 No server, build process, database, or API key is required.
 
+<!-- Steps for putting the website online using GitHub's free static-site hosting. -->
 ## Publishing with GitHub Pages
 
 1. Upload all project files to the root of your GitHub repository.
@@ -41,6 +46,7 @@ No server, build process, database, or API key is required.
 6. Save the settings.
 7. Wait for GitHub Pages to publish the website.
 
+<!-- Explains how the browser saves learning progress between visits. -->
 ## Persistent data
 
 Treewise uses the browser's localStorage API.
@@ -66,6 +72,7 @@ Species proficiency is calculated from the visitor's historical performance for 
 
 A species is considered mastered when the visitor has answered at least five questions about it and achieved at least 80% accuracy.
 
+<!-- Describes what information is stored, what is transmitted, and basic safeguards. -->
 ## Privacy and security
 
 - No user accounts or passwords.
@@ -80,6 +87,7 @@ A species is considered mastered when the visitor has answered at least five que
 
 The Google Fonts stylesheet is an external request. Remove its import from `styles.css` if a completely self-contained website is required.
 
+<!-- Lists things this educational version does not currently do. -->
 ## Limitations
 
 - Progress does not synchronize between devices or browsers.
@@ -88,6 +96,7 @@ The Google Fonts stylesheet is an external request. Remove its import from `styl
 - Species information should be checked against authoritative botanical references before being used for professional identification.
 - Quiz questions are text-clue based; this version does not include photographic identification.
 
+<!-- Identifies the version of the tree catalog included in this release. -->
 ## Data version
 
 Treewise nationwide catalog, version 2.

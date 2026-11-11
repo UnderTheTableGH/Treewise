@@ -242,7 +242,7 @@ Canary Island Date Palm|Phoenix canariensis|Palm|National|Massive crown of feath
 Queen Palm|Syagrus romanzoffiana|Palm|Southeast|Feathery arching fronds and smooth gray trunk; planted ornamentally.
 Windmill Palm|Trachycarpus fortunei|Palm|National|Fan-shaped leaves and fibrous trunk; planted in mild climates.
 Royal Palm|Roystonea regia|Palm|Southeast|Smooth columnar trunk and large feather-like crown.
-`.
+`;
 
 const TREES = RAW_TREES.trim().split("\n").map((line, index) => {
   const parts = line.split("|");

@@ -1,6 +1,8 @@
+/* styles.css controls the visual design; these rules do not create page content or quiz behavior. */
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 
+/* Design variables: reusable colors, spacing, and other values used throughout the stylesheet. */
 :root {
   --forest: #183b32;
   --forest-light: #28594a;
@@ -22,6 +24,7 @@
   box-sizing: border-box;
 }
 
+/* Base document behavior and global typography defaults. */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 85px;
@@ -56,6 +59,7 @@ button {
   cursor: pointer;
 }
 
+/* Header and navigation: the top bar, brand mark, and links. */
 .site-header {
   position: sticky;
   top: 0;
@@ -102,6 +106,7 @@ button {
   color: var(--forest);
 }
 
+/* Hero area: the large introduction at the top of the page. */
 .hero {
   min-height: 465px;
   display: grid;
@@ -222,6 +227,7 @@ button {
   font-size: 11px;
 }
 
+/* Decorative tree illustration used to add visual interest to the hero area. */
 .hero-decoration {
   min-height: 300px;
   display: flex;
@@ -283,6 +289,7 @@ button {
   letter-spacing: 3px;
 }
 
+/* Compact row of learning statistics below the hero. */
 .stats-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -317,6 +324,7 @@ button {
   font-size: 10px;
 }
 
+/* Shared section spacing and heading styles used by the main page areas. */
 .section {
   max-width: 1100px;
   margin: auto;
@@ -342,6 +350,7 @@ button {
   font-size: 13px;
 }
 
+/* Practice layout: places the quiz settings beside the quiz panel on wide screens. */
 .practice-layout {
   display: grid;
   grid-template-columns: 290px 1fr;
@@ -366,6 +375,7 @@ button {
 }
 
 .quiz-settings label,
+/* Quiz settings controls: category choices, filters, and explanatory notes. */
 .quiz-settings legend {
   display: block;
   margin: 17px 0 7px;
@@ -419,6 +429,7 @@ button {
   font-size: 10px;
 }
 
+/* Quiz panel: placeholder, question progress, answer choices, and feedback. */
 .quiz-panel {
   min-height: 440px;
   padding: 30px;
@@ -596,6 +607,7 @@ button {
   margin-bottom: 25px;
 }
 
+/* Tree library: search controls and the grid of tree cards. */
 .library-section {
   max-width: none;
   padding-right: max(25px, calc((100% - 1050px) / 2));
@@ -627,6 +639,7 @@ button {
   margin-bottom: 23px;
 }
 
+/* Tree cards: responsive grid and the appearance of each catalog entry. */
 .tree-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -718,6 +731,7 @@ button {
   font-size: 12px;
 }
 
+/* Progress dashboard: summary cards, category bars, and species history. */
 .progress-section {
   padding-bottom: 100px;
 }
@@ -781,6 +795,7 @@ button {
 }
 
 .category-progress,
+/* Detailed progress lists showing accuracy for categories and individual species. */
 .species-progress {
   margin-top: 17px;
 }
@@ -849,6 +864,7 @@ button {
   font-size: 11px;
 }
 
+/* Footer styling and the educational-use disclaimer. */
 .site-footer {
   padding: 35px 20px;
   background: var(--forest);
@@ -872,6 +888,7 @@ button {
   color: #a9b9ac;
 }
 
+/* Modal dialog styling for the expanded details of a tree. */
 .tree-dialog {
   width: min(500px, calc(100% - 30px));
   max-height: 85vh;
@@ -908,6 +925,7 @@ button {
   line-height: 1.8;
 }
 
+/* Tablet and small-laptop adjustments: rearrange columns and navigation for narrower screens. */
 @media (max-width: 760px) {
   .site-header {
     height: auto;
@@ -969,6 +987,7 @@ button {
   }
 }
 
+/* Phone adjustments: reduce spacing and simplify grids for very narrow screens. */
 @media (max-width: 460px) {
   .site-header nav {
     width: 100%;

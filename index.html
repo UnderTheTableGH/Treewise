@@ -1,4 +1,5 @@
 
+<!-- HTML defines the page structure; CSS styles it and JavaScript makes it interactive. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,7 @@
   <script src="app.js" defer></script>
 </head>
 <body>
+    <!-- Site header: the brand and navigation links shown at the top of every page. -->
   <header class="site-header">
     <a class="brand" href="#home">
       <span class="brand-mark">✳</span>
@@ -23,7 +25,9 @@
     </nav>
   </header>
 
+    <!-- Main contains the primary content visitors use to study and practice tree identification. -->
   <main>
+        <!-- Hero section: the introductory message and the main call to action. -->
     <section class="hero" id="home">
       <div class="hero-content">
         <p class="eyebrow">THE UNITED STATES TREE IDENTIFICATION GUIDE</p>
@@ -50,6 +54,7 @@
       </div>
     </section>
 
+        <!-- Quick-stat strip: small summary values that introduce the learning dashboard. -->
     <section class="stats-strip" aria-label="Your learning overview">
       <div class="stat">
         <span class="stat-value" id="total-answered">0</span>
@@ -69,6 +74,7 @@
       </div>
     </section>
 
+        <!-- Practice section: quiz settings, questions, answer feedback, and results. -->
     <section class="section" id="practice">
       <div class="section-heading">
         <div>
@@ -174,6 +180,7 @@
       </div>
     </section>
 
+        <!-- Tree library: searchable and filterable catalog of tree species. -->
     <section class="section library-section" id="learn">
       <div class="section-heading library-heading">
         <div>
@@ -212,6 +219,7 @@
       <p class="empty-state" id="library-empty" hidden>No trees match your search.</p>
     </section>
 
+        <!-- Progress section: statistics and saved learning history for this browser. -->
     <section class="section progress-section" id="progress">
       <div class="section-heading">
         <div>
@@ -278,6 +286,7 @@
     </section>
   </main>
 
+    <!-- Footer: closing site information and educational disclaimer. -->
   <footer class="site-footer">
     <a class="brand footer-brand" href="#home">✳ treewise</a>
     <p>A learning tool for curious naturalists.</p>
@@ -287,6 +296,7 @@
     </p>
   </footer>
 
+    <!-- Dialog: a pop-up window used to show additional details about a selected tree. -->
   <dialog id="tree-dialog" class="tree-dialog">
     <button class="dialog-close" id="close-dialog" aria-label="Close">×</button>
     <div id="tree-dialog-content"></div>

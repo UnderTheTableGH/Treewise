@@ -1,4 +1,6 @@
+// app.js contains the tree data and the code that powers search, quizzes, and saved progress.
 
+// "use strict" asks the browser to catch certain common JavaScript mistakes.
 "use strict";
 
 /*
@@ -10,6 +12,7 @@
  * are broad, not county-level distribution maps.
  */
 
+// This name is the browser-storage key: it labels the saved Treewise progress data.
 const STORAGE_KEY = "treewise.us.v2";
 
 /*
@@ -23,6 +26,8 @@ const STORAGE_KEY = "treewise.us.v2";
  * Northeast, Southeast, Midwest, Southwest, West, Pacific, National
  */
 
+// Tree catalog source: each line below describes one tree, with fields separated by the | character.
+// Keeping the records in one text block makes the catalog easier to maintain.
 const RAW_TREES = `
 Red Maple|Acer rubrum|Deciduous|National|Three- to five-lobed leaves with red flowers, stems, and fall color.
 Sugar Maple|Acer saccharum|Deciduous|Northeast|Five-lobed leaves with smooth U-shaped spaces between the lobes; famous for maple syrup.
@@ -244,6 +249,7 @@ Windmill Palm|Trachycarpus fortunei|Palm|National|Fan-shaped leaves and fibrous 
 Royal Palm|Roystonea regia|Palm|Southeast|Smooth columnar trunk and large feather-like crown.
 `;
 
+// Convert the text catalog into JavaScript objects so the rest of the app can filter and display it.
 const TREES = RAW_TREES.trim().split("\n").map((line, index) => {
   const parts = line.split("|");
   return {
@@ -260,7 +266,9 @@ const TREES = RAW_TREES.trim().split("\n").map((line, index) => {
 });
 
 /* ---------- Persistent learning history ---------- */
+// These functions create, load, update, and save quiz progress in this browser. localStorage is browser storage that survives page reloads.
 
+// Return a fresh, empty progress record with the same shape used by saved progress.
 function emptyProgress() {
   return {
     version: 2,
@@ -270,6 +278,7 @@ function emptyProgress() {
   };
 }
 
+// Read saved progress and check that its structure is usable before the app relies on it.
 function loadProgress() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -304,6 +313,7 @@ function loadProgress() {
 
 let progress = loadProgress();
 
+// Convert the progress object to text and save it. The try/catch handles storage being unavailable or full.
 function saveProgress() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
@@ -314,6 +324,7 @@ function saveProgress() {
   }
 }
 
+// Add one answer to the history, update that species totals, save, and refresh the dashboard.
 function recordAnswer(tree, correct) {
   const answer = {
     treeId: tree.id,
@@ -340,6 +351,7 @@ function recordAnswer(tree, correct) {
 }
 
 /* ---------- Statistics ---------- */
+// These helpers calculate accuracy and proficiency values from the saved answer history.
 
 function percent(correct, attempts) {
   return attempts ? Math.round((correct / attempts) * 100) : null;
@@ -365,6 +377,7 @@ function getSpeciesProficiency(treeId) {
   return percent(stats.correct, stats.attempts);
 }
 
+// Average each practiced species percentage equally, rather than letting frequently seen trees dominate.
 function getOverallProficiency() {
   const practiced = TREES
     .map(tree => getSpeciesStats(tree.id))
@@ -379,6 +392,7 @@ function getOverallProficiency() {
   return Math.round(average * 100);
 }
 
+// A species counts as mastered after at least five attempts and at least 80% accuracy.
 function getMasteredCount() {
   return TREES.filter(tree => {
     const stats = getSpeciesStats(tree.id);
@@ -412,10 +426,13 @@ function getCategoryStats(category) {
 }
 
 /* ---------- DOM helpers ---------- */
+// DOM means Document Object Model: the browser's in-memory representation of the HTML page.
 
+// Shortcuts for finding the first matching HTML element ($) or all matching elements ($$).
 const $ = selector => document.querySelector(selector);
 const $$ = selector => Array.from(document.querySelectorAll(selector));
 
+// Escape special characters before putting catalog text into HTML; this helps prevent injected markup.
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, char => ({
     "&": "&amp;",
@@ -427,7 +444,9 @@ function escapeHTML(value) {
 }
 
 /* ---------- Library ---------- */
+// Build the searchable tree cards and open a dialog when a visitor requests more information.
 
+// Read the search/filter controls, find matching trees, and draw their cards in the page.
 function renderLibrary() {
   const search = $("#tree-search").value.trim().toLowerCase();
   const region = $("#library-region").value;
@@ -472,6 +491,7 @@ function renderLibrary() {
   $("#library-empty").hidden = matches.length !== 0;
 }
 
+// Find one tree by its numeric ID and show its identification details and the visitor's history.
 function openTreeDetails(treeId) {
   const tree = TREES.find(item => item.id === Number(treeId));
   if (!tree) return;
@@ -494,7 +514,9 @@ function openTreeDetails(treeId) {
 }
 
 /* ---------- Quiz configuration and generation ---------- */
+// This section chooses eligible trees, builds randomized answer choices, and controls quiz state.
 
+// Current quiz state: the selected question deck, current position, score, and answer status.
 let quiz = {
   deck: [],
   index: 0,
@@ -508,6 +530,7 @@ function getSelectedCategories() {
 }
 
 
+// Apply the selected category and region settings to determine which trees can appear in the quiz.
 function getEligibleTrees() {
   const categories = getSelectedCategories();
   const region = $("#region-filter").value;
@@ -529,6 +552,7 @@ function getEligibleTrees() {
   });
 }
 
+// Return a shuffled copy of an array using the Fisher-Yates shuffle algorithm.
 function shuffle(items) {
   const copy = items.slice();
 
@@ -546,6 +570,7 @@ function updateAvailableCount() {
     `${count} species available for these settings`;
 }
 
+// Validate the settings, create a random set of questions, reset the score, and show the first question.
 function startQuiz() {
   const available = getEligibleTrees();
   const requested = Number($("#question-count").value);
@@ -574,6 +599,7 @@ function startQuiz() {
   $("#quiz-panel").scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
+// Create multiple-choice answers, using trees from the same category first when possible.
 function makeChoices(correctTree) {
   const difficulty = $("#difficulty").value;
   const choiceCount = difficulty === "beginner" ? 3 : 4;
@@ -597,6 +623,7 @@ function makeChoices(correctTree) {
   return shuffle([correctTree, ...wrong]);
 }
 
+// Display the current clue and create clickable buttons for its possible answers.
 function renderQuestion() {
   if (quiz.index >= quiz.deck.length) {
     finishQuiz();
@@ -631,6 +658,7 @@ function renderQuestion() {
   `).join("");
 }
 
+// Check the selected answer, prevent a second answer, save the result, and show feedback.
 function chooseAnswer(treeId) {
   if (quiz.answered) return;
 
@@ -667,6 +695,7 @@ function chooseAnswer(treeId) {
     quiz.index === quiz.deck.length - 1 ? "See results" : "Next question";
 }
 
+// Show the final score and refresh the library and dashboard after the last question.
 function finishQuiz() {
   progress.quizzesCompleted += 1;
   saveProgress();
@@ -693,7 +722,9 @@ function finishQuiz() {
 }
 
 /* ---------- Performance dashboard ---------- */
+// Fill the dashboard with totals, recent accuracy, category bars, and species-level results.
 
+// Recalculate and display all visible progress measures from the saved answer history.
 function renderDashboard() {
   const total = progress.answers.length;
   const recent = getRecentAnswers();
@@ -780,10 +811,12 @@ function renderDashboard() {
 }
 
 /* ---------- Event listeners ---------- */
+// Event listeners respond to clicks and changes in the HTML controls. They connect the page to the functions above.
 
 $("#start-quiz").addEventListener("click", startQuiz);
 $("#restart-quiz").addEventListener("click", startQuiz);
 
+// Listen on the answer container so newly created answer buttons work without individual listeners.
 $("#answer-options").addEventListener("click", event => {
   const button = event.target.closest("[data-answer]");
   if (button) chooseAnswer(button.dataset.answer);
@@ -819,6 +852,7 @@ $$('input[name="category"]').forEach(input => {
   input.addEventListener("change", updateAvailableCount);
 });
 
+// Ask before erasing saved progress, since this action cannot be undone.
 $("#clear-progress").addEventListener("click", () => {
   const confirmed = confirm(
     "Reset all Treewise learning history on this browser? This cannot be undone."
@@ -833,7 +867,9 @@ $("#clear-progress").addEventListener("click", () => {
 });
 
 /* ---------- Initial page setup ---------- */
+// Run once after the deferred script loads: populate the page with the catalog and saved progress.
 
+// Set initial counts and draw the library and dashboard before the visitor starts using the site.
 function initializeTreewise() {
   $("#library-count").textContent = TREES.length;
   updateAvailableCount();
